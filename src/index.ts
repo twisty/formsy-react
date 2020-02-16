@@ -159,9 +159,12 @@ class Formsy extends React.Component<FormsyProps, FormsyState> {
     }, {});
 
   public setFormPristine = (isPristine: boolean) => {
-    this.setState({
-      formSubmitted: !isPristine,
-    });
+    // eslint-disable-next-line react/destructuring-assignment
+    if (this.state.formSubmitted === isPristine) {
+      this.setState({
+        formSubmitted: !isPristine,
+      });
+    }
 
     // Iterate through each component and set it as pristine
     // or "dirty".
@@ -195,9 +198,12 @@ class Formsy extends React.Component<FormsyProps, FormsyState> {
   public setFormValidState = (allIsValid: boolean) => {
     const { onValid, onInvalid } = this.props;
 
-    this.setState({
-      isValid: allIsValid,
-    });
+    // eslint-disable-next-line react/destructuring-assignment
+    if (this.state.isValid !== allIsValid) {
+      this.setState({
+        isValid: allIsValid,
+      });
+    }
 
     if (allIsValid) {
       onValid();
@@ -433,9 +439,12 @@ class Formsy extends React.Component<FormsyProps, FormsyState> {
       this.setFormValidState(allIsValid);
 
       // Tell the form that it can start to trigger change events
-      this.setState({
-        canChange: true,
-      });
+      // eslint-disable-next-line react/destructuring-assignment
+      if (this.state.canChange !== true) {
+        this.setState({
+          canChange: true,
+        });
+      }
     };
 
     // Run validation again in case affected by other inputs. The
@@ -459,10 +468,12 @@ class Formsy extends React.Component<FormsyProps, FormsyState> {
     // If there are no inputs, set state where form is ready to trigger
     // change event. New inputs might be added later
     if (!this.inputs.length) {
-      this.setState({
-        canChange: true,
-      });
-      onValidationComplete();
+      // eslint-disable-next-line react/destructuring-assignment
+      if (this.state.canChange !== true) {
+        this.setState({
+          canChange: true,
+        });
+      }
     }
   };
 
